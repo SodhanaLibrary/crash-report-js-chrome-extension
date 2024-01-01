@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Input</title>
+    <style>
+        #inputContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            margin-top: 20px;
+        }
+
+        #jsonTableContainer {
+            display: none;
+            margin-top: 20px;
+        }
+
+        #submitButton {
+          margin-top: 8px;
+        }
+
+
+        body {
+          width: 700px;
+        }
+
+        /* Table Style */
+        #jsonTable {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        #jsonTable th, #jsonTable td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        #jsonTable th {
+            background-color: #f2f2f2;
+        }
+
+        #jsonTable tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        #jsonTable tr:hover {
+            background-color: #ddd;
+        }
+
+        /* Clear Button Style */
+        #clearButton {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin-top: 10px;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        #clearButton:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div id="inputContainer">
+    <label for="jsonInput">Enter JSON Objects:</label>
+    <textarea id="jsonInput" rows="5" cols="40"></textarea>
+    <button id="submitButton">Submit</button>
+</div>
+
+<div id="jsonTableContainer">
+    <table border="1" id="jsonTable">
+        <thead>
+            <tr>
+                <th>Type</th>
+                <th>Target</th>
+                <th>Value</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="jsonTableBody"></tbody>
+    </table>
+    <button id="clearButton" onclick="clearInput()">Clear</button>
+</div>
+
+<script src="popup.js"></script>
+</body>
+</html>
