@@ -12,6 +12,15 @@ function getElementsByXPath(xpath, parent) {
   return results;
 }
 
+function getShownString(val) {
+  if( (typeof val === "object" || typeof val === 'function') && (val !== null) ) {
+    return JSON.stringify(val);
+  } else if (Array.isArray(val)) {
+    return val.join(', ');
+  }
+  return val;
+}
+
 function displayJSONTable(jsonArray) {
   const inputContainer = document.getElementById('inputContainer');
   const jsonTableContainer = document.getElementById('jsonTableContainer');
@@ -28,7 +37,7 @@ function displayJSONTable(jsonArray) {
         action = `<button data-id="${obj.id}">${obj.type}</button>`;
       }
       const row = document.createElement('tr');
-      row.innerHTML = `<td>${obj.type}</td><td>${obj.target || ''}</td><td>${obj.value || ''}</td><td>${action}</td>`;
+      row.innerHTML = `<td>${obj.type}</td><td>${getShownString(obj.target) || ''}</td><td>${getShownString(obj.value) || ''}</td><td>${action}</td>`;
       jsonTableBody.appendChild(row);
   });
 
@@ -61,16 +70,16 @@ document.getElementById('submitButton').addEventListener('click', function () {
       gTracks = jsonArray;
   } catch (error) {
       // alert('Invalid JSON input. Please enter valid JSON objects.');
-  }    
+  }
 });
 
-document.getElementById('jsonTable').addEventListener('click', function (event) {  
+document.getElementById('jsonTable').addEventListener('click', function (event) {
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     var currentTab = tabs[0];
     if(event.target.attributes['data-id']) {
       const jsonInput = document.getElementById('jsonInput').value.trim();
       const jsonArray = JSON.parse(jsonInput);
-      const fTrack = jsonArray.find(track => 
+      const fTrack = jsonArray.find(track =>
         parseInt(event.target.attributes['data-id'].value) === track.id
       );
       chrome.tabs.sendMessage(currentTab.id, fTrack);
